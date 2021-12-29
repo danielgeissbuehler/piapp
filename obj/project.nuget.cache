@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "dgSpecHash": "s3B/ZU8mIR3BPypDG5hsreQYKDJ+ZK7T3wNh4NgqJirfXyKbeUkgpn5TxL+NaO32ZJUBHwPgUBCfqhtajvrsyA==",
+  "success": true,
+  "projectFilePath": "/Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/piapp/piapp.csproj",
+  "expectedPackageFiles": [
+    "/Users/Daniel/.nuget/packages/iot.device.bindings/1.5.0/iot.device.bindings.1.5.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/microsoft.win32.systemevents/5.0.0/microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/runtime.linux-arm.runtime.native.system.io.ports/5.0.0/runtime.linux-arm.runtime.native.system.io.ports.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/runtime.linux-arm64.runtime.native.system.io.ports/5.0.0/runtime.linux-arm64.runtime.native.system.io.ports.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/runtime.linux-x64.runtime.native.system.io.ports/5.0.0/runtime.linux-x64.runtime.native.system.io.ports.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/runtime.native.system.io.ports/5.0.1/runtime.native.system.io.ports.5.0.1.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/runtime.osx-x64.runtime.native.system.io.ports/5.0.0/runtime.osx-x64.runtime.native.system.io.ports.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/sixlabors.imagesharp/1.0.2/sixlabors.imagesharp.1.0.2.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.codedom/5.0.0/system.codedom.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.device.gpio/1.5.0/system.device.gpio.1.5.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.drawing.common/5.0.2/system.drawing.common.5.0.2.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.io.ports/5.0.1/system.io.ports.5.0.1.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.management/5.0.0/system.management.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.security.accesscontrol/5.0.0/system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.security.principal.windows/5.0.0/system.security.principal.windows.5.0.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/system.valuetuple/4.5.0/system.valuetuple.4.5.0.nupkg.sha512",
+    "/Users/Daniel/.nuget/packages/unitsnet/4.77.0/unitsnet.4.77.0.nupkg.sha512"
+  ],
+  "logs": []
+}

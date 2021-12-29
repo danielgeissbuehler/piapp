@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET 6.0 Debug Launch on Raspi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "DebugPublishToRaspi",
+            "program": "~/dotnet/dotnet",
+            "args": [
+                "./piapp.dll"
+            ],
+            "cwd": "~/piapp",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceRoot}",
+                "pipeProgram": "/usr/bin/ssh",
+                "pipeArgs": [
+                    "pi@plattform"
+                ],
+                "debuggerPath": "~/vsdbg/vsdbg"
+                }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}
