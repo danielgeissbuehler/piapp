@@ -14,21 +14,21 @@ const int M1_PITCH = 10;
 gpio.OpenPin(O_LED, PinMode.Output);
 gpio.Write(O_LED, PinValue.Low);
 
-while (true)
-{
-    if (gpio.Read(O_LED) == PinValue.High)
-    {
-        gpio.Write(O_LED, PinValue.Low);
-    }
-    else
-    {
-        gpio.Write(O_LED, PinValue.High);
-    }
-    Thread.Sleep(2000);
+//Motor init
+gpio.OpenPin(O_M1_DIRECTION, PinMode.Output);
+gpio.OpenPin(O_M1_ENABLED, PinMode.Output);
+gpio.OpenPin(O_M1_PWM, PinMode.Output);
 
-    Console.WriteLine("blink");
+gpio.Write(O_M1_DIRECTION, PinValue.Low);
+gpio.Write(O_M1_ENABLED, PinValue.Low);
+
+for (int i = 0; i < 1000; i++)
+{
+    i++;
+    gpio.Write(O_M1_PWM, PinValue.High);
+    System.Threading.Thread.Sleep(10);
+    gpio.Write(O_M1_PWM, PinValue.Low);
 }
 
-
-
-
+gpio.Write(O_M1_ENABLED, PinValue.High);
+gpio.Write(O_LED, PinValue.High);
