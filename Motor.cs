@@ -74,9 +74,9 @@ namespace main
                 if (_GPIO.Read(_i_run) == PinValue.High)
                 {
                     _GPIO.Write(_o_pwm, PinValue.Low);
-                    System.Threading.Thread.Sleep(5);
+                    System.Threading.Thread.Sleep(1);
                     _GPIO.Write(_o_pwm, PinValue.High);
-                    System.Threading.Thread.Sleep(5);
+                    System.Threading.Thread.Sleep(1);
                 }
                 else
                 {

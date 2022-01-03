@@ -1,5 +1,0 @@
-/Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/net_core_test/piapp/piapp/bin/Debug/net6.0/publish/piapp
-/Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/net_core_test/piapp/piapp/bin/Debug/net6.0/publish/piapp.dll
-/Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/net_core_test/piapp/piapp/bin/Debug/net6.0/publish/piapp.deps.json
-/Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/net_core_test/piapp/piapp/bin/Debug/net6.0/publish/piapp.runtimeconfig.json
-/Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/net_core_test/piapp/piapp/bin/Debug/net6.0/publish/piapp.pdb
