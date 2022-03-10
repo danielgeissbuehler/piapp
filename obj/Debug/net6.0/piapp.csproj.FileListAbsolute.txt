@@ -35,3 +35,6 @@
 /Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/piapp/obj/Debug/net6.0/ref/piapp.dll
 /Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/piapp/obj/Debug/net6.0/piapp.pdb
 /Users/Daniel/Dropbox/Mein Mac (Internet-Danu.fritz.box)/Documents/Arbeit/Programmieren/Private Projekte/Plattform/piapp/obj/Debug/net6.0/piapp.genruntimeconfig.cache
+C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\obj\Debug\net6.0\piapp.dll
+C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\obj\Debug\net6.0\ref\piapp.dll
+C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\obj\Debug\net6.0\piapp.pdb

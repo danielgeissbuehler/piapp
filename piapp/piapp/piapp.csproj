@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Iot.Device.Bindings" Version="1.5.0" />
+    <PackageReference Include="MudBlazor" Version="6.0.5" />
+    <PackageReference Include="System.Device.Gpio" Version="1.5.0" />
+  </ItemGroup>
+
+  <Target Name="Copy-to-Raspi" AfterTargets="Publish">
+    <Exec Command="pscp -pw berry -r C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\piapp\piapp\bin\Release\net6.0\publish\ pi@plattform:/home/pi/piapp"/>
+  </Target>
+
+
+
+  
+
+</Project>

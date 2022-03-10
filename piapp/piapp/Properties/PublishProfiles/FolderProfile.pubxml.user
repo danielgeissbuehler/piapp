@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\piapp\piapp\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-02-28T12:39:27.1531517Z;True|2022-02-28T13:16:14.8581231+01:00;False|2022-02-28T13:15:53.0760000+01:00;True|2022-02-28T13:15:14.5067582+01:00;False|2022-02-28T13:14:41.9065384+01:00;True|2022-02-28T13:13:43.0847198+01:00;True|2022-02-28T13:11:41.8378297+01:00;False|2022-02-28T13:10:40.8926501+01:00;False|2022-02-28T13:09:46.0201770+01:00;False|2022-02-28T13:07:25.1717955+01:00;False|2022-02-28T13:05:43.3617253+01:00;False|2022-02-28T13:05:34.9146853+01:00;True|2022-02-28T13:03:37.5676297+01:00;True|2022-02-28T12:59:31.8477231+01:00;</History>
+  </PropertyGroup>
+</Project>

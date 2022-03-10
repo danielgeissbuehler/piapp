@@ -1,0 +1,133 @@
+﻿@page "/move"
+@using piapp.Infrastructure
+@inject IAxisController _axisController
+
+<PageTitle>Plattform bewegen</PageTitle>
+
+<h1>Plattform bewegen</h1>
+    <MudItem>
+        @if (Error != string.Empty)
+                {
+                    <MudAlert Style="padding-bottom=20px" Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseError())">@Error</MudAlert>
+                }
+
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:200px" Height="500px" Width="500px">
+            <MudGrid>
+                <MudItem Class="d-flex align-center justify-center mud-width-full" Style="margin-bottom: 80px">
+                    <h2>Serielle Verbindung</h2>
+                </MudItem>
+                <MudItem Class="d-flex align-center justify-center mud-width-full">
+                    @if (_connected)
+                    {
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" @onmousedown="Disconnect">Trennen</MudButton>
+                    }
+                    else
+                    {
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" @onmousedown="Connect">Verbinden</MudButton>
+                    }
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:20px" Height="500px" Width="500px">
+
+            <MudGrid Justify="Justify.Center">
+                <MudItem Class="d-flex align-center justify-center mud-width-full" Style="margin-bottom: 80px">
+                    <h2>Plattform initialisieren</h2>
+                </MudItem>
+
+                <MudItem>
+                    <MudButton Disabled="@_processing" Variant="Variant.Filled" Color="Color.Primary" OnClick=@InitPlatform>
+
+                        @if (_processing)
+                        {
+                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                            <MudText Class="ms-2">Initialisierung läuft</MudText>
+                        }
+                        else
+                        {
+                            <MudText>Initialisierung Start</MudText>
+                        }
+                    </MudButton>
+                </MudItem>
+                <MudItem>
+                    <MudButton Variant="Variant.Filled" Color="Color.Error" hidden="@(!_processing)" OnClick=@StopProcess>Stop</MudButton>
+                </MudItem>
+
+            </MudGrid>
+        </MudPaper>
+
+        <h2>X - Position: @_axisController.XAxisPosition</h2>
+
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:200px" Height="500px" Width="500px">
+
+            @if (_upButtonPressed)
+            {
+                <MudFab Style="position:absolute; top:100px" Color="Color.Default" StartIcon="@Icons.Material.Outlined.ArrowUpward" Size="Size.Large" @onmousedown="ArrowUpOnClick" @onmouseup="ArrowUpOnRelease" />
+            }
+            else
+            {
+                <MudFab Style="position:absolute; top:100px" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.ArrowUpward" Size="Size.Large" @onmousedown="ArrowUpOnClick" @onmouseup="ArrowUpOnRelease" />
+            }
+
+
+            @if (_downButtonPressed)
+            {
+                <MudFab Style="position:absolute; bottom:100px" Color="Color.Default" StartIcon="@Icons.Material.Outlined.ArrowDownward" Size="Size.Large" @onmousedown="ArrowDownOnClick" @onmouseup="ArrowDownOnRelease" />
+            }
+            else
+            {
+                <MudFab Style="position:absolute; bottom:100px" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.ArrowDownward" Size="Size.Large" @onmousedown="ArrowDownOnClick" @onmouseup="ArrowDownOnRelease" />
+            }
+
+            @if (_rightButtonPressed)
+            {
+                <MudFab Style="position:absolute; right:100px" Color="Color.Default" StartIcon="@Icons.Material.Outlined.ArrowForward" Size="Size.Large" @onmousedown="ArrowRightOnClick" @onmouseup="ArrowRightOnRelease" />
+            }
+            else
+            {
+                <MudFab Style="position:absolute; right:100px" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.ArrowForward" Size="Size.Large" @onmousedown="ArrowRightOnClick" @onmouseup="ArrowRightOnRelease" />
+            }
+
+            @if (_leftButtonPressed)
+            {
+                <MudFab Style="position:absolute; left:100px" Color="Color.Default" StartIcon="@Icons.Material.Outlined.ArrowBack" Size="Size.Large" @onmousedown="ArrowLeftOnClick" @onmouseup="ArrowLeftOnRelease" />
+            }
+            else
+            {
+                <MudFab Style="position:absolute; left:100px" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.ArrowBack" Size="Size.Large" @onmousedown="ArrowLeftOnClick" @onmouseup="ArrowLeftOnRelease" />
+            }
+
+        </MudPaper>
+
+
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:20px" Height="500px" Width="500px">
+
+            <MudGrid Justify="Justify.Center">
+
+                @if (Error != string.Empty)
+                {
+                    <MudAlert Style="padding-bottom=20px" Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseError())">@Error</MudAlert>
+                }
+                <MudItem>
+                    <MudButton Disabled="@_processing" Variant="Variant.Filled" Color="Color.Primary" @onmousedown="SartProcessClick">
+
+                        @if (_processing)
+                        {
+                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                            <MudText Class="ms-2">Processing</MudText>
+                        }
+                        else
+                        {
+                            <MudText>Prozess Start</MudText>
+                        }
+                    </MudButton>
+                </MudItem>
+                <MudItem>
+                    <MudButton Variant="Variant.Filled" Color="Color.Error" hidden="@(!_processing)" OnClick=@StopProcess>Stop</MudButton>
+                </MudItem>
+
+            </MudGrid>
+        </MudPaper>
+
+    </MudItem>
