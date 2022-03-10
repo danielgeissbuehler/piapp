@@ -10,11 +10,8 @@ namespace piapp.Infrastructure
         private readonly int _motorStepsPerRound = 0;
         private readonly int _axisPitchPerRound = 0;
 
-        public event EventHandler XAxisPositionChanged;
-        public event EventHandler YAxisPositionChanged;
-
-        private SerialPortHandler _arduinoXAxis;
-        private SerialPortHandler _arduinoYAxis;
+        private readonly SerialPortHandler _arduinoXAxis;
+        private readonly SerialPortHandler _arduinoYAxis;
 
         private string _xAxisState = "done";
         private string _yAxisState = "done";
@@ -29,10 +26,26 @@ namespace piapp.Infrastructure
 
 
         private int _xAxisActualAbsPositionInSteps = 0;
+        
+        private int XAxisActualAbsPositionInSteps 
+        {
+            get
+            { 
+                return _xAxisActualAbsPositionInSteps; 
+            }
+            set
+            {
+                _xAxisActualAbsPositionInSteps = value;
+                XAxisActualAbsPositionInMM = _xAxisActualAbsPositionInSteps / _motorStepsPerRound / _axisPitchPerRound;
+            }
+        }
+
+        
         private int _yAxisActualAbsPositionInSteps = 0;
 
+
         private double _xAxisActualAbsPositionInMM;
-        private double XAxisActualAbsPositionInMM
+        public double XAxisActualAbsPositionInMM
         {
             get
             {
@@ -40,26 +53,8 @@ namespace piapp.Infrastructure
             }
             set
             {
-                _xAxisActualAbsPositionInMM = _xAxisActualAbsPositionInSteps / _motorStepsPerRound / _axisPitchPerRound;
-                EventHandler handler = XAxisPositionChanged;
-                PositionChangedEventArgs args = new PositionChangedEventArgs { Position = _xAxisActualAbsPositionInMM };
-                handler?.Invoke(this, args);
-            }
-        }
-
-        private double _yAxisActualAbsPositionInMM = 0;
-        private double YAxisActualAbsPositionInMM
-        {
-            get
-            {
-                return _yAxisActualAbsPositionInMM;
-            }
-            set
-            {
-                _yAxisActualAbsPositionInMM = _yAxisActualAbsPositionInSteps / _motorStepsPerRound / _axisPitchPerRound;
-                EventHandler handler = YAxisPositionChanged;
-                PositionChangedEventArgs args = new PositionChangedEventArgs { Position = _xAxisActualAbsPositionInMM };
-                handler?.Invoke(this, args);
+                _xAxisActualAbsPositionInMM = value;
+                Debug.WriteLine("Position in mm: " + _xAxisActualAbsPositionInMM);
             }
         }
 
@@ -90,9 +85,9 @@ namespace piapp.Infrastructure
             _arduinoYAxis.Disconnect();
         }
 
-        public async Task<bool> Init(CancellationToken cancellationToken)
+        public bool Init(CancellationToken cancellationToken)
         {
-            if (!await InitXAxis(cancellationToken))
+            if (!InitXAxis(cancellationToken))
                 return false;
 
             //if (! await InitYAxis(cancellationToken))
@@ -101,7 +96,7 @@ namespace piapp.Infrastructure
             return true;
         }
 
-        private async Task<bool> InitXAxis(CancellationToken cancellationToken)
+        private bool InitXAxis(CancellationToken cancellationToken)
         {
             MoveXAxisInfinite("up", 300);
             while (!_limitSwich1XAxis)
@@ -114,9 +109,10 @@ namespace piapp.Infrastructure
             }
 
             StopXAxis();
-            Thread.Sleep(100); // Achse stoppen lassen bevor weiter
+            Thread.Sleep(100);
+            //await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
-            _xAxisActualAbsPositionInSteps = 0;
+            XAxisActualAbsPositionInSteps = 0;
 
             MoveXAxisInfinite("down", 300);
             while (!_limitSwich2XAxis)
@@ -129,11 +125,12 @@ namespace piapp.Infrastructure
             }
 
             StopXAxis();
-            Thread.Sleep(100); // Achse stoppen lassen bevor weiter
+            Thread.Sleep(100);
+            //await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
-            _xAxisActualAbsPositionInSteps = (-_xAxisActualRelPositionInSteps / 2);
+            XAxisActualAbsPositionInSteps = (-_xAxisActualRelPositionInSteps / 2);
 
-            var moveToPosition = new AxisStepParams { Direction = 1, Distance = Math.Abs(_xAxisActualAbsPositionInSteps), Mode = "step", Speed = 300 };
+            var moveToPosition = new AxisStepParams { Direction = 1, Distance = Math.Abs(XAxisActualAbsPositionInSteps), Mode = "step", Speed = 300 };
 
 
             MoveXAxisOneStep(moveToPosition);
@@ -148,11 +145,13 @@ namespace piapp.Infrastructure
             }
 
             StopXAxis();
-            Thread.Sleep(100); // Achse stoppen lassen bevor weiter
-            Debug.WriteLine("Position X-Achse: " + XAxisActualAbsPositionInMM);
+            Thread.Sleep(100);
+            //await Task.Delay(100); // Achse stoppen lassen bevor weiter
+            Debug.WriteLine("Position X-Achse: " + _xAxisActualAbsPositionInMM);
             return true;
         }
 
+        
         private async Task<bool> InitYAxis(CancellationToken cancellationToken)
         {
             MoveYAxisInfinite("up", 300);
@@ -166,7 +165,7 @@ namespace piapp.Infrastructure
             }
 
             StopYAxis();
-            Thread.Sleep(100); // Achse stoppen lassen bevor weiter
+            await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
             _yAxisActualAbsPositionInSteps = 0;
 
@@ -181,7 +180,7 @@ namespace piapp.Infrastructure
             }
 
             StopYAxis();
-            Thread.Sleep(100); // Achse stoppen lassen bevor weiter
+            await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
             _yAxisActualAbsPositionInSteps = (-_yAxisActualAbsPositionInSteps / 2);
 
@@ -199,7 +198,7 @@ namespace piapp.Infrastructure
             }
 
             StopYAxis();
-            Thread.Sleep(100); // Achse stoppen lassen bevor weiter
+            await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
             return true;
         }
@@ -380,9 +379,9 @@ namespace piapp.Infrastructure
             if (output == "fertig")
             {
                 _xAxisState = "done";
-                _xAxisActualAbsPositionInSteps += _xAxisActualRelPositionInSteps;
+                XAxisActualAbsPositionInSteps += _xAxisActualRelPositionInSteps;
                 _xAxisActualRelPositionInSteps = 0;
-                Debug.WriteLine($"X-Achse fertig, aktuelle Position: {_xAxisActualAbsPositionInSteps}");
+                Debug.WriteLine($"X-Achse fertig, aktuelle Position: {XAxisActualAbsPositionInSteps}");
                 return;
             }
 

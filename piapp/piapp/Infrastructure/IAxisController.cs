@@ -4,9 +4,10 @@ namespace piapp.Infrastructure
 {
     public interface IAxisController
     {
+        public double XAxisActualAbsPositionInMM { get; set; }
         public void ConnectControllers();
         public void DisconnectControllers();
-        public Task<bool> Init(CancellationToken cancellationToken);
+        public bool Init(CancellationToken cancellationToken);
         public void RunProcedure(Procedure procedure, CancellationToken cancellationToken);
         public void MoveYAxisInfinite(string direction, int speed);
         public void MoveYAxisOneStep(AxisStepParams step);

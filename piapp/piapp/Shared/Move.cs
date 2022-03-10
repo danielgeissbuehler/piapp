@@ -18,12 +18,18 @@ namespace piapp.Shared
         private bool _processing = false;
         private bool _connected = true;
 
+        private double XPositon = 0;
+
         private CancellationTokenSource _cancellationTokenSource;
 
 
         public Move()
         {
-            
+        }
+
+        private void _axisController_XAxisPositionChanged(object? sender, PositionChangedEventArgs e)
+        {
+            XPositon = e.Position;
         }
 
         public void ArrowUpOnClick()
@@ -96,7 +102,7 @@ namespace piapp.Shared
         {
             _processing = true;
 
-            Procedure procedure = RandomProcedureFactory.GetRandomProcedure(10, 10, 100, 20, 1000, 1000);
+            Procedure procedure = RandomProcedureFactory.GetRandomProcedure(10, 10, 200, 20, 2000, 2000);
 
             try
             {
