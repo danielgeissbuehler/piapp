@@ -28,12 +28,12 @@ namespace piapp.Infrastructure
             YAxis.DisconnectController();
         }
 
-        public async void Init(CancellationToken cancellationToken)
+        public async Task<bool> Init(CancellationToken cancellationToken)
         {
             var ok = XAxis.Init(cancellationToken);
             //ok = _yAxis.Init(cancellationToken);
 
-            //return ok;
+            return ok;
         }
 
         public async void RunProcedure(Procedure procedure, CancellationToken cancellationToken)

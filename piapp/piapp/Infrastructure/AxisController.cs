@@ -65,7 +65,9 @@ namespace piapp.Infrastructure
 
         private bool InitAxis(CancellationToken cancellationToken)
         {
-            MoveAxisInfinite("up", 300);
+            _relativePositionInSteps = 0;
+
+            MoveAxisInfinite("up", 100);
             while (!_limitSwich_1)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -74,12 +76,18 @@ namespace piapp.Infrastructure
                     return false;
                 }
             }
-
+            
             StopAxis();
-            Thread.Sleep(100);
-            //await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
-            MoveAxisInfinite("down", 300);
+            while (State != AxisState.Idle)
+            {
+
+            }
+
+            _absolutePositionInSteps = 0;
+            Position = 0;
+
+            MoveAxisInfinite("down", 100);
             while (!_limitSwich_2)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -90,10 +98,13 @@ namespace piapp.Infrastructure
             }
 
             StopAxis();
-            Thread.Sleep(100);
-            //await Task.Delay(100); // Achse stoppen lassen bevor weiter
 
-            var moveToPosition = new AxisCommand { Direction = 1, Distance = Math.Abs(_absolutePositionInSteps / 2), Mode = "step", Speed = 300 };
+            while (State != AxisState.Idle)
+            {
+
+            }            
+
+            var moveToPosition = new AxisCommand { Direction = 1, Distance = Math.Abs(_absolutePositionInSteps / 2), Mode = "step", Speed = 100 };
 
             MoveAxisToPosition(moveToPosition);
             while (State != AxisState.Idle)
@@ -106,9 +117,15 @@ namespace piapp.Infrastructure
             }
 
             StopAxis();
-            Thread.Sleep(100);
-            //await Task.Delay(100); // Achse stoppen lassen bevor weiter
-            Debug.WriteLine("Position X-Achse: " + Position);
+
+            while (State != AxisState.Idle)
+            {
+
+            }
+
+            _absolutePositionInSteps = 0;
+            Position = 0;
+         
             return true;
         }
 
@@ -180,7 +197,6 @@ namespace piapp.Infrastructure
                 case "fertig":
                     State = AxisState.Idle;
                     UpdatePosition(_relativePositionInSteps);
-                    Debug.WriteLine($"X-Achse fertig, aktuelle Position: { _absolutePositionInSteps } ");
                     break;
 
                 default:
@@ -207,7 +223,7 @@ namespace piapp.Infrastructure
                     _relativePositionInSteps = 0;
                 }
 
-                Position = ((_absolutePositionInSteps + _relativePositionInSteps) / _motorStepsPerRound) / _axisPitchPerRound;
+                Position = (_absolutePositionInSteps + _relativePositionInSteps) / _motorStepsPerRound / _axisPitchPerRound;
                 PositionChanged?.Invoke(this, EventArgs.Empty);
             }
         }

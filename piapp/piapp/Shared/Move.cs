@@ -35,12 +35,11 @@ namespace piapp.Shared
         //Update View wenn Wert geändert hat
         private void XAxis_PositionChanged(object? sender, EventArgs e)
         {
-            if(_timer.ElapsedMilliseconds > 100)
+            if(_timer.ElapsedMilliseconds > 500)
             {
                 InvokeAsync(StateHasChanged);
                 _timer.Restart();
-            }
-            
+            }  
         }
 
         //Update View wenn Wert geändert hat
@@ -77,7 +76,7 @@ namespace piapp.Shared
             _downButtonPressed = false;
         }
 
-        public async void ArrowRightOnClick()
+        public void ArrowRightOnClick()
         {
             _plattformController.MoveYAxisInfinite("up", Speed);
             _rightButtonPressed = true;
@@ -89,7 +88,7 @@ namespace piapp.Shared
             _rightButtonPressed = false;
         }
 
-        public async void ArrowLeftOnClick()
+        public void ArrowLeftOnClick()
         {
             _plattformController.MoveYAxisInfinite("down", Speed);
             _leftButtonPressed = true;
