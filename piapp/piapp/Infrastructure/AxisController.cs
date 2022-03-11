@@ -6,8 +6,8 @@ namespace piapp.Infrastructure
 {
     public class AxisController : IAxisController
     {
-        private readonly int _motorStepsPerRound = 0;
-        private readonly int _axisPitchPerRound = 0;
+        private readonly double _motorStepsPerRound = 0;
+        private readonly double _axisPitchPerRound = 0;
 
         private readonly SerialPortHandler _SerialPortToArduino;
 
@@ -15,11 +15,24 @@ namespace piapp.Infrastructure
         private bool _limitSwich_2 = false;
 
         private int _absolutePositionInSteps = 0;
+        private int _relativePositionInSteps = 0;
+
+        public event EventHandler PositionChanged;
+        public AxisState State { get; private set; }
+        private double _position = 0;
+        public double Position
+        {
+            get
+            {
+                return _position;
+            }
+            private set
+            {
+                _position = Math.Round(value, 2);
+            }
+        }
+
         
-
-        public AxisState State { get; set; }
-        public double Position { get; set; }
-
         public AxisController(string serialPort, int baudRate, int stepsPerRound, int axisPitchPerRound)
         {
             _motorStepsPerRound = stepsPerRound;
@@ -166,11 +179,11 @@ namespace piapp.Infrastructure
 
                 case "fertig":
                     State = AxisState.Idle;
+                    UpdatePosition(_relativePositionInSteps);
                     Debug.WriteLine($"X-Achse fertig, aktuelle Position: { _absolutePositionInSteps } ");
                     break;
 
                 default:
-                    //Debug.WriteLine($"Message konnte nicht erkannt werden: {output}");
                     break;
             }
 
@@ -178,13 +191,25 @@ namespace piapp.Infrastructure
             {
                 UpdatePosition(relPosInSteps);
             }
-                return;
+
+            return;
         }
 
         private void UpdatePosition(int relativePositionInSteps)
         {
-            _absolutePositionInSteps += relativePositionInSteps;
-            Position = _absolutePositionInSteps / _motorStepsPerRound / _axisPitchPerRound;
+            if (relativePositionInSteps != 0)
+            {
+                _relativePositionInSteps = relativePositionInSteps;
+
+                if (State == AxisState.Idle)
+                {
+                    _absolutePositionInSteps += _relativePositionInSteps;
+                    _relativePositionInSteps = 0;
+                }
+
+                Position = ((_absolutePositionInSteps + _relativePositionInSteps) / _motorStepsPerRound) / _axisPitchPerRound;
+                PositionChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }

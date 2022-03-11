@@ -1,9 +1,10 @@
 ﻿using piapp.Data;
 using piapp.Domain;
+using System.Diagnostics;
 
 namespace piapp.Shared
 {
-    public partial class Move
+    public partial class Move : IDisposable
     {
         private int Speed = 500;
         private string Error = string.Empty;
@@ -14,13 +15,48 @@ namespace piapp.Shared
         private bool _rightButtonPressed = false;
         private bool _processing = false;
         private bool _connected = true;
+        private Stopwatch _timer = Stopwatch.StartNew();
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public void ArrowUpOnClick()
+        protected override void OnInitialized()
         {
+            base.OnInitialized();
+            _plattformController.XAxis.PositionChanged += XAxis_PositionChanged;
+            _plattformController.YAxis.PositionChanged += YAxis_PositionChanged;
+        }
+
+        void IDisposable.Dispose()
+        {
+            _plattformController.XAxis.PositionChanged -= XAxis_PositionChanged;
+            _plattformController.YAxis.PositionChanged -= YAxis_PositionChanged;
+        }
+
+        //Update View wenn Wert geändert hat
+        private void XAxis_PositionChanged(object? sender, EventArgs e)
+        {
+            if(_timer.ElapsedMilliseconds > 100)
+            {
+                InvokeAsync(StateHasChanged);
+                _timer.Restart();
+            }
+            
+        }
+
+        //Update View wenn Wert geändert hat
+        private void YAxis_PositionChanged(object? sender, EventArgs e)
+        {
+            if (_timer.ElapsedMilliseconds > 100)
+            {
+                InvokeAsync(StateHasChanged);
+                _timer.Restart();
+            }
+        }
+
+        public void ArrowUpOnClick()
+        { 
             _plattformController.MoveXAxisInfinite("up", Speed);
-            _upButtonPressed = true;        
+            _upButtonPressed = true;
         }
 
         public void ArrowUpOnRelease()
@@ -41,7 +77,7 @@ namespace piapp.Shared
             _downButtonPressed = false;
         }
 
-        public void ArrowRightOnClick()
+        public async void ArrowRightOnClick()
         {
             _plattformController.MoveYAxisInfinite("up", Speed);
             _rightButtonPressed = true;
@@ -53,7 +89,7 @@ namespace piapp.Shared
             _rightButtonPressed = false;
         }
 
-        public void ArrowLeftOnClick()
+        public async void ArrowLeftOnClick()
         {
             _plattformController.MoveYAxisInfinite("down", Speed);
             _leftButtonPressed = true;
@@ -72,7 +108,7 @@ namespace piapp.Shared
             try
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                await Task.Run(() => _plattformController.Init(_cancellationTokenSource.Token));
+                await Task.Run(() => _plattformController.Init(_cancellationTokenSource.Token)).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -83,7 +119,7 @@ namespace piapp.Shared
             _processing = false;
         }
 
-        public async Task SartProcessClick()
+        public async Task StartProcess()
         {
             _processing = true;
 
@@ -92,14 +128,14 @@ namespace piapp.Shared
             try
             {
                 _cancellationTokenSource = new CancellationTokenSource();
+
                 await Task.Run(() => _plattformController.RunProcedure(procedure, _cancellationTokenSource.Token));
             }
             catch (Exception ex)
             {
-
                 Error = ex.Message;
             }
-            
+
             _processing = false;
         }
 

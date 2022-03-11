@@ -58,6 +58,7 @@
         </MudPaper>
 
        <h2>X - Position: @_plattformController.XAxis.Position</h2>
+       <h2>Y - Position: @_plattformController.YAxis.Position</h2>
 
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:200px" Height="500px" Width="500px">
 
@@ -100,7 +101,6 @@
 
         </MudPaper>
 
-
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:20px" Height="500px" Width="500px">
 
             <MudGrid Justify="Justify.Center">
@@ -110,7 +110,7 @@
                     <MudAlert Style="padding-bottom=20px" Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseError())">@Error</MudAlert>
                 }
                 <MudItem>
-                    <MudButton Disabled="@_processing" Variant="Variant.Filled" Color="Color.Primary" @onmousedown="SartProcessClick">
+                    <MudButton Disabled="@_processing" Variant="Variant.Filled" Color="Color.Primary" OnClick="@StartProcess">
 
                         @if (_processing)
                         {
