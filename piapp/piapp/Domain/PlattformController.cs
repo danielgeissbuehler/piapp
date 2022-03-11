@@ -10,10 +10,13 @@ namespace piapp.Infrastructure
         public IAxisController XAxis { get; private set; }
         public IAxisController YAxis { get; private set; }
 
+        public AxisState State { get; private set; }
+
         public PlattformController()
         {
             XAxis = new AxisController("COM7", 460800, 60, 100);
             YAxis = new AxisController("COM8", 460800, 60, 100);
+            State = AxisState.Idle;
         }
 
         public void ConnectController()

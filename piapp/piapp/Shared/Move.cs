@@ -6,7 +6,9 @@ namespace piapp.Shared
 {
     public partial class Move : IDisposable
     {
-        private int Speed = 500;
+        private const int MAX_SPEED = 20;
+        private const int MIN_SPEED = 500;
+        private int Speed = 250;
         private string Error = string.Empty;
 
         private bool _upButtonPressed = false;
