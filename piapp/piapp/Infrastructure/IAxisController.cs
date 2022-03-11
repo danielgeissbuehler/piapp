@@ -4,17 +4,13 @@ namespace piapp.Infrastructure
 {
     public interface IAxisController
     {
-        public double XAxisActualAbsPositionInMM { get; set; }
-        public void ConnectControllers();
-        public void DisconnectControllers();
+        public AxisState State { get; set; }
+        public double Position { get; set; }
+        public void ConnectController();
+        public void DisconnectController();
         public bool Init(CancellationToken cancellationToken);
-        public void RunProcedure(Procedure procedure, CancellationToken cancellationToken);
-        public void MoveYAxisInfinite(string direction, int speed);
-        public void MoveYAxisOneStep(AxisStepParams step);
-        public void MoveXAxisInfinite(string direction, int speed);
-        public void MoveXAxisOneStep(AxisStepParams step);
-        public void StopXAxis();
-        public void StopYAxis();
-        public void StopAll();
+        public void MoveAxisInfinite(string direction, int speed);
+        public void MoveAxisToPosition(AxisCommand step);
+        public void StopAxis();
     }
 }

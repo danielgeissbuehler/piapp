@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <Target Name="Copy-to-Raspi" AfterTargets="Publish">
-    <Exec Command="pscp -pw berry -r C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\piapp\piapp\bin\Release\net6.0\publish\ pi@plattform:/home/pi/piapp"/>
+    <Exec Command="pscp -pw berry -r C:\Users\danie\Documents\Privat\Projekte\Plattform\Piapp\piapp\piapp\bin\Release\net6.0\publish\ pi@plattform:/home/pi/piapp" />
   </Target>
 
 

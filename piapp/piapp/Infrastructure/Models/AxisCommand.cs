@@ -1,6 +1,6 @@
 ﻿namespace piapp.Domain
 {
-    public record AxisStepParams
+    public record AxisCommand
     {
         public string Mode { get; set; }
         public int Direction { get; set; }

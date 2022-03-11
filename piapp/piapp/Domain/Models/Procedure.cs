@@ -4,7 +4,7 @@
     {
         public Procedure()
         {
-            Steps = new List<Step>();
+            Steps = new List<PositionCommand>();
             Name = string.Empty;
             UserName = string.Empty;
         }
@@ -12,6 +12,6 @@
         public string Name { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public IEnumerable<Step> Steps { get; set; }
+        public IEnumerable<PositionCommand> Steps { get; set; }
     }
 }

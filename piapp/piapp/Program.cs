@@ -12,7 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddMudServices();
-builder.Services.AddSingleton<IAxisController, AxisViaArduinoController>();
+builder.Services.AddSingleton<PlattformController>();
 
 var app = builder.Build();
 

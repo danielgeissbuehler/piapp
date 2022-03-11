@@ -25,16 +25,16 @@ namespace piapp.Data
             return procedure;
         }
 
-        private static List<Step> CreateRandomSteps(int numberOfSteps, int maxSpeed, int minSpeed, int maxDistancePerStep, int minDistancePerStep)
+        private static List<PositionCommand> CreateRandomSteps(int numberOfSteps, int maxSpeed, int minSpeed, int maxDistancePerStep, int minDistancePerStep)
         {
-            var steps = new List<Step>();
+            var steps = new List<PositionCommand>();
 
             for (int i = 0; i < numberOfSteps; i++)
             {
                 var xAxis = GetRandomAxisParams(maxSpeed, minSpeed, maxDistancePerStep, minDistancePerStep);
                 var yAxis = GetRandomAxisParams(maxSpeed, minSpeed, maxDistancePerStep, minDistancePerStep);
 
-                var step = new Step { Id = i, XAxis = xAxis, YAxis = yAxis };
+                var step = new PositionCommand { Id = i, XAxis = xAxis, YAxis = yAxis };
                 
                 //step.XAxis.Distance = xAxis.Distance > _maxDistanceFromCenter? xAxis.Distance : _actualXPosition + Math.Abs(_actualXPosition - _maxDistanceFromCenter);
                 //step.YAxis.Distance = yAxis.Distance > _maxDistanceFromCenter ? yAxis.Distance : _maxDistanceFromCenter - _actualXPosition;
@@ -48,9 +48,9 @@ namespace piapp.Data
             return steps;
         }
 
-        private static AxisStepParams GetRandomAxisParams(int maxSpeed, int minSpeed, int maxDistancePerStep, int minDistancePerStep)
+        private static AxisCommand GetRandomAxisParams(int maxSpeed, int minSpeed, int maxDistancePerStep, int minDistancePerStep)
         {
-            return new AxisStepParams
+            return new AxisCommand
             {
                 Mode = "step",
                 Direction = GetRandomDirection(),

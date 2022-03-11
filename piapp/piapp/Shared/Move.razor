@@ -1,6 +1,6 @@
 ﻿@page "/move"
 @using piapp.Infrastructure
-@inject IAxisController _axisController
+@inject PlattformController _plattformController
 
 <PageTitle>Plattform bewegen</PageTitle>
 
@@ -57,7 +57,7 @@
             </MudGrid>
         </MudPaper>
 
-       <h2>X - Position: @XPositon</h2>
+       <h2>X - Position: @_plattformController.XAxis.Position</h2>
 
         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8" Style="position:relative; margin-top:200px" Height="500px" Width="500px">
 
